@@ -56,7 +56,7 @@ class DokterController extends Controller
             'role' => 'dokter',
         ]);
 
-        return redirect()->route('dokter.index')
+        return redirect()->route('dokters.index')
             ->with('message', 'Data Dokter Berhasil di tambahkan')
             ->with('type', 'success');
     }
@@ -80,14 +80,23 @@ class DokterController extends Controller
 
     public function update(Request $request, User $dokter)
     {
-        $request->validate([
-            
-
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'no_ktp' => 'required|string|max:16|unique:users,no_ktp,' . $dokter->id,
+            'no_hp' => 'required|string|max:15',
+            'id_poli' => 'required|exists:poli,id',
+            'email' => 'required|email|unique:users,email,' . $dokter->id,
+            'password' => 'nullable|string|min:6', // optional
         ]);
 
         $updateData = [
-           
-
+           'nama' => $validated['nama'],
+            'alamat' => $validated['alamat'],
+            'no_ktp' => $validated['no_ktp'],
+            'no_hp' => $validated['no_hp'],
+            'id_poli' => $validated['id_poli'],
+            'email' => $validated['email'],
         ];
 
         //update password bila password disii
@@ -98,7 +107,7 @@ class DokterController extends Controller
         //disimpan
         $dokter->update($updateData);
 
-        return redirect()->route('dokter.index')
+        return redirect()->route('dokters.index')
             ->with('message', 'Data Dokter Berhasil di ubah')
             ->with('type','success');
     }
@@ -109,7 +118,7 @@ class DokterController extends Controller
     public function destroy(User $dokter)
     {
         $dokter->delete();
-        return redirect()->route('dokter.index')
+        return redirect()->route('dokters.index')
             ->with('message', 'Data Dokter Berhasil dihapus')
             ->with('type', 'success');
     }

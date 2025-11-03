@@ -43,8 +43,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                       
-                                      
+                                        <label for="no_hp" class="form-label">No HP <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control @error('no_hp') is-invalid @enderror"
+                                            id="no_hp" name="no_hp" value="{{ old('no_hp') }}" required>
+                                        @error('no_hp')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -74,9 +78,14 @@
                             </div>
     
                             <div class="form-group mb-3">
-                                
-
-
+                                <div class="form-group mb-3">
+                                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" required>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
     
                             <div class="form-group mb-3">
