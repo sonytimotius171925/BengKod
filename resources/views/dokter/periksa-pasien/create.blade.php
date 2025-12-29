@@ -65,19 +65,19 @@
 {{-- SWEETALERT --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+{{-- SCRIPT UTAMA --}}
 <script>
     const selectObat     = document.getElementById('select-obat');
     const listObat       = document.getElementById('obat-terpilih');
     const inputBiaya     = document.getElementById('biaya_periksa');
     const inputObatJson  = document.getElementById('obat_json');
-    const totalHargaEl  = document.getElementById('total-harga');
-    const formPeriksa   = document.getElementById('form-periksa');
+    const totalHargaEl   = document.getElementById('total-harga');
+    const formPeriksa    = document.getElementById('form-periksa');
 
     let daftarObat = [];
 
     selectObat.addEventListener('change', () => {
         const option = selectObat.options[selectObat.selectedIndex];
-
         if (!option.value) return;
 
         const obat = {
@@ -109,12 +109,9 @@
 
             li.innerHTML = `
                 <div>
-                    <strong>${obat.nama}</strong>
-                    <br>
+                    <strong>${obat.nama}</strong><br>
                     <small>Rp ${obat.harga.toLocaleString()}</small>
-                    ${obat.stok <= 0
-                        ? '<span class="badge bg-danger ms-2">Stok Habis</span>'
-                        : ''}
+                    ${obat.stok <= 0 ? '<span class="badge bg-danger ms-2">Stok Habis</span>' : ''}
                 </div>
                 <button type="button" class="btn btn-sm btn-danger" onclick="hapusObat(${index})">
                     Hapus
@@ -141,14 +138,16 @@
             Swal.fire('Gagal', 'Minimal pilih 1 obat', 'error');
         }
     });
-
-    // FLASH MESSAGE DARI BACKEND
-    @if (session('message'))
-        Swal.fire({
-            icon: "{{ session('type') }}",
-            title: "{{ session('message') }}",
-            timer: 3000,
-            showConfirmButton: false
-        });
-    @endif
 </script>
+
+{{-- FLASH MESSAGE DARI BACKEND --}}
+@if (session('message'))
+<script>
+    Swal.fire({
+        icon: "{{ session('type') }}",
+        title: "{{ session('message') }}",
+        timer: 3000,
+        showConfirmButton: false
+    });
+</script>
+@endif

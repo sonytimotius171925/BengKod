@@ -14,7 +14,7 @@
                                         <th>Nama Pasien</th>
                                         <th>Keluhan</th>
                                         <th>Tanggal Periksa</th>
-                                        <th>Biaya</th>
+                                        <th>Total Biaya</th>
                                         <th style="width: 150px;">Aksi</th>
                                     </tr>
                                 </thead>
